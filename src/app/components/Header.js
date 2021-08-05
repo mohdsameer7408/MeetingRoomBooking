@@ -26,7 +26,9 @@ function Header() {
           <HeaderRightLink to="/myBookings">My Bookings</HeaderRightLink>
         )}
         {!user && <HeaderRightLink to="/auth">Login</HeaderRightLink>}
-        {user && <HeaderRightTab>Hey User</HeaderRightTab>}
+        {user && (
+          <HeaderRightTab>Hey {user?.email.split("@")[0]}</HeaderRightTab>
+        )}
         {user && <HeaderRightTab onClick={handleLogout}>LogOut</HeaderRightTab>}
       </HeaderRight>
     </HeaderContainer>

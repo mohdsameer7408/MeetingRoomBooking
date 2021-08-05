@@ -11,6 +11,7 @@ import axios from "./app/features/axios";
 import { setRooms } from "./app/features/roomsSlice";
 import Cookies from "js-cookie";
 import { signIn } from "./app/features/authSlice";
+import BookingsScreen from "./app/screens/BookingsScreen";
 
 const pusher = new Pusher("065c8d5cf3e03b73bd2f", {
   cluster: "ap2",
@@ -51,6 +52,9 @@ function App() {
       <AppContainer>
         <Header />
         <Switch>
+          <Route path="/myBookings">
+            <BookingsScreen />
+          </Route>
           <Route path="/auth">
             <AuthScreen />
           </Route>

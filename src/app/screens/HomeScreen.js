@@ -7,10 +7,10 @@ import Room from "../components/Room";
 
 function HomeScreen() {
   const availableRooms = [...useSelector(selectRooms)].filter(
-    (room) => room.isAvailable
+    (room) => room.isAvailable === "true"
   );
   const unavailableRooms = [...useSelector(selectRooms)].filter(
-    (room) => !room.isAvailable
+    (room) => room.isAvailable === "false"
   );
 
   return (
@@ -43,7 +43,7 @@ const Title = styled.h2`
   border-bottom: 3px solid #000;
 `;
 
-const RoomsContainer = styled.div`
+export const RoomsContainer = styled.div`
   display: flex;
   gap: 30px;
   width: 100%;

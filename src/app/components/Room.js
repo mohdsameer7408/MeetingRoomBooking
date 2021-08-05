@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { Button } from "@material-ui/core";
@@ -6,9 +6,43 @@ import { useSelector } from "react-redux";
 
 import { baseURL } from "../features/axios";
 import { selectUser } from "../features/authSlice";
+import axios from "../features/axios";
 
-function Room({ roomData, unavailable }) {
+function Room({ roomData, unavailable, leave }) {
   const user = useSelector(selectUser);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const bookingHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      setIsLoading(true);
+      await axios.patch(
+        `/bookRoom/${roomData._id}`,
+        {},
+        { headers: { "auth-token": user.token } }
+      );
+    } catch ({ response }) {
+      alert(response.data);
+    }
+    setIsLoading(false);
+  };
+
+  const checkOutHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      setIsLoading(true);
+      await axios.patch(
+        `/leaveRoom/${roomData._id}`,
+        {},
+        { headers: { "auth-token": user.token } }
+      );
+    } catch ({ response }) {
+      alert(response.data);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <RoomContainer>
@@ -17,7 +51,16 @@ function Room({ roomData, unavailable }) {
       <RoomNumber>
         {moment(new Date(roomData.dateTime)).format("MMM Do YYYY, HH:mm")}
       </RoomNumber>
-      {!unavailable && user && <BookButton>Book Now</BookButton>}
+      {!unavailable && user && (
+        <BookButton onClick={bookingHandler} disabled={isLoading}>
+          {isLoading ? "Booking..." : "Book Now"}
+        </BookButton>
+      )}
+      {leave && user && (
+        <BookButton onClick={checkOutHandler} disabled={isLoading}>
+          {isLoading ? "Leaving..." : "Leave"}
+        </BookButton>
+      )}
     </RoomContainer>
   );
 }
@@ -40,4 +83,7 @@ const RoomNumber = styled.h4`
   margin-bottom: 10px;
 `;
 
-const BookButton = styled(Button)``;
+const BookButton = styled(Button)`
+  background: var(--secondaryColor) !important;
+  color: #fff !important;
+`;
