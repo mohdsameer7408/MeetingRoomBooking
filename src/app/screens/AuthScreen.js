@@ -8,6 +8,7 @@ import axios from "../features/axios";
 import { signInAsync } from "../features/authSlice";
 
 function AuthScreen() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,10 +18,12 @@ function AuthScreen() {
   const submitHandler = async (event, login) => {
     event.preventDefault();
 
-    if (!email && !password) return alert("Email and password is required!");
+    if (!email || !password || (!login && !name))
+      return alert("Email and password is required!");
     setIsLoading(true);
     try {
       const { data } = await axios.post(`/${login ? "login" : "register"}`, {
+        name,
         email,
         password,
       });
@@ -35,7 +38,14 @@ function AuthScreen() {
   return (
     <AuthScreenContainer>
       <AuthForm>
-        <FormTitle>Welcome to Meeting Room</FormTitle>
+        <FormTitle>Welcome to Tennis Court</FormTitle>
+        <FormInput
+          placeholder="Name"
+          type="text"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <FormInput
           placeholder="Email"
           type="email"
@@ -92,7 +102,7 @@ const FormTitle = styled.h2`
   margin-bottom: 20px;
 `;
 
-const FormInput = styled.input`
+export const FormInput = styled.input`
   outline-width: 0;
   border: none;
   border-bottom: 2px solid #000;
@@ -100,7 +110,7 @@ const FormInput = styled.input`
   margin-bottom: 10px;
 `;
 
-const SubmitButton = styled(Button)`
+export const SubmitButton = styled(Button)`
   margin-bottom: 5px !important;
   background: var(--secondaryColor) !important;
   color: #fff !important;

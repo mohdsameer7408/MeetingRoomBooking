@@ -6,25 +6,14 @@ import { selectRooms } from "../features/roomsSlice";
 import Room from "../components/Room";
 
 function HomeScreen() {
-  const availableRooms = [...useSelector(selectRooms)].filter(
-    (room) => room.isAvailable === "true"
-  );
-  const unavailableRooms = [...useSelector(selectRooms)].filter(
-    (room) => room.isAvailable === "false"
-  );
+  const rooms = useSelector(selectRooms);
 
   return (
     <HomeScreenContainer>
       <Title>Available Rooms</Title>
       <RoomsContainer>
-        {availableRooms.map((room) => (
+        {rooms.map((room) => (
           <Room key={room._id} roomData={room} />
-        ))}
-      </RoomsContainer>
-      <Title>Unavailable Rooms</Title>
-      <RoomsContainer>
-        {unavailableRooms.map((room) => (
-          <Room key={room._id} roomData={room} unavailable />
         ))}
       </RoomsContainer>
     </HomeScreenContainer>

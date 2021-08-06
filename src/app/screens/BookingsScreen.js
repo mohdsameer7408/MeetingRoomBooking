@@ -4,20 +4,22 @@ import styled from "styled-components";
 
 import { RoomsContainer } from "./HomeScreen";
 import { selectUser } from "../features/authSlice";
-import { selectRooms } from "../features/roomsSlice";
-import Room from "../components/Room";
+import { selectBookings } from "../features/bookingsSlice";
+import Booking from "../components/Booking";
 
 function BookingsScreen() {
   const user = useSelector(selectUser);
-  const rooms = [
-    ...useSelector(selectRooms).filter((room) => room.bookedTo === user._id),
+  const bookings = [
+    ...useSelector(selectBookings).filter(
+      (booking) => booking.user._id === user._id
+    ),
   ];
 
   return (
     <BookingsScreenContainer>
       <RoomsContainer>
-        {rooms.map((room) => (
-          <Room key={room._id} roomData={room} unavailable leave />
+        {bookings.map((booking) => (
+          <Booking key={booking._id} bookingData={booking} />
         ))}
       </RoomsContainer>
     </BookingsScreenContainer>

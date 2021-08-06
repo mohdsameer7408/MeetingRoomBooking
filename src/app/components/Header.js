@@ -27,8 +27,9 @@ function Header() {
         )}
         {!user && <HeaderRightLink to="/auth">Login</HeaderRightLink>}
         {user && (
-          <HeaderRightTab>Hey {user?.email.split("@")[0]}</HeaderRightTab>
+          <HeaderRightLink to="/room/create">Create Room</HeaderRightLink>
         )}
+        {user && <HeaderRightTab>Hey {user?.name.slice(0, 7)}</HeaderRightTab>}
         {user && <HeaderRightTab onClick={handleLogout}>LogOut</HeaderRightTab>}
       </HeaderRight>
     </HeaderContainer>
