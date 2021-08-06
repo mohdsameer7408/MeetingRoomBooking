@@ -77,6 +77,7 @@ function Room({ roomData }) {
         { roomId: roomData._id, time, date },
         { headers: { "auth-token": user.token } }
       );
+      dateChangeHandler({ _d: new Date() });
     } catch ({ response }) {
       alert(response.data);
     }
@@ -98,7 +99,7 @@ function Room({ roomData }) {
   //   }
   //   setIsLoading(false);
   // };
-  console.log(time);
+
   return (
     <RoomContainer>
       <RoomImage src={`${baseURL}/image?name=${roomData.imageUrl}`} />
