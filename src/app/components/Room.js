@@ -98,7 +98,7 @@ function Room({ roomData }) {
   //   }
   //   setIsLoading(false);
   // };
-
+  console.log(time);
   return (
     <RoomContainer>
       <RoomImage src={`${baseURL}/image?name=${roomData.imageUrl}`} />
@@ -111,7 +111,7 @@ function Room({ roomData }) {
       <TimeSelector value={time} onChange={(e) => setTime(e.target.value)}>
         <TimeOption>Select</TimeOption>
         {availableTime.map((timeId) => (
-          <TimeOption key={timeId}>
+          <TimeOption key={timeId} value={timeId}>
             {timeId} - {`${parseInt(timeId) + 1}`}
           </TimeOption>
         ))}
