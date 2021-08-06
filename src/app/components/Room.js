@@ -111,7 +111,9 @@ function Room({ roomData }) {
       <TimeSelector value={time} onChange={(e) => setTime(e.target.value)}>
         <TimeOption>Select</TimeOption>
         {availableTime.map((timeId) => (
-          <TimeOption key={timeId}>{timeId}</TimeOption>
+          <TimeOption key={timeId}>
+            {timeId} - {`${parseInt(timeId) + 1}`}
+          </TimeOption>
         ))}
       </TimeSelector>
       {user && (
