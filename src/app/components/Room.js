@@ -13,7 +13,7 @@ import { selectBookings } from "../features/bookingsSlice";
 const getTimeArray = (timeRange) => {
   const timeArr = [],
     rangeArr = timeRange.split("-");
-  for (let i = parseInt(rangeArr[0]); i <= parseInt(rangeArr[1]); i++) {
+  for (let i = parseInt(rangeArr[0]); i < parseInt(rangeArr[1]); i++) {
     timeArr.push(i.toString());
   }
   return timeArr;
